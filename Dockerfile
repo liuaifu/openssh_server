@@ -7,11 +7,10 @@
 FROM ubuntu:14.04
 MAINTAINER liuaifu "laf163@gmail.com"
 
-RUN rm -f /etc/apt/sources.list
-
 RUN apt-get update
 RUN apt-get install -y openssh-server
 
+RUN mv /etc/apt/sources.list /etc/apt/sources.list.bak
 #设置国内的源
 RUN echo "deb http://mirrors.163.com/ubuntu/ trusty main restricted universe multiverse" >>/etc/apt/sources.list
 RUN echo "deb http://mirrors.163.com/ubuntu/ trusty-security main restricted universe multiverse" >>/etc/apt/sources.list
