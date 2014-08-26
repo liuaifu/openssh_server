@@ -8,6 +8,11 @@ FROM ubuntu:14.04
 MAINTAINER liuaifu "laf163@gmail.com"
 
 RUN rm -f /etc/apt/sources.list
+
+RUN apt-get update
+RUN apt-get install -y openssh-server vim
+
+#设置国内的源
 RUN echo "deb http://mirrors.163.com/ubuntu/ trusty main restricted universe multiverse" >>/etc/apt/sources.list
 RUN echo "deb http://mirrors.163.com/ubuntu/ trusty-security main restricted universe multiverse" >>/etc/apt/sources.list
 RUN echo "deb http://mirrors.163.com/ubuntu/ trusty-updates main restricted universe multiverse" >>/etc/apt/sources.list
@@ -19,8 +24,6 @@ RUN echo "deb-src http://mirrors.163.com/ubuntu/ trusty-updates main restricted 
 RUN echo "deb-src http://mirrors.163.com/ubuntu/ trusty-proposed main restricted universe multiverse" >>/etc/apt/sources.list
 RUN echo "deb-src http://mirrors.163.com/ubuntu/ trusty-backports main restricted universe multiverse" >>/etc/apt/sources.list
 
-RUN apt-get update
-RUN apt-get install -y openssh-server
 RUN mkdir /var/run/sshd
 RUN echo 'root:12345678' | chpasswd
 EXPOSE 222
