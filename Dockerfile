@@ -10,7 +10,7 @@ MAINTAINER liuaifu "laf163@gmail.com"
 RUN rm -f /etc/apt/sources.list
 
 RUN apt-get update
-RUN apt-get install -y openssh-server vim
+RUN apt-get install -y openssh-server
 
 #设置国内的源
 RUN echo "deb http://mirrors.163.com/ubuntu/ trusty main restricted universe multiverse" >>/etc/apt/sources.list
