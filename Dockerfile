@@ -2,20 +2,27 @@
 # port 222
 # user:root, password:12345678
 # 
-# VERSION 0.1
+# VERSION 0.2
 
-FROM ubuntu:14.04
-MAINTAINER liuaifu "laf163@gmail.com"
+FROM ubuntu:14.04.3
+MAINTAINER liuaifu "laf163@qq.com"
 
-RUN apt-get update
-RUN apt-get install -y openssh-server
-
-RUN mv /etc/apt/sources.list /etc/apt/sources.list.bak
-#设置国内的源
-RUN (echo "deb http://mirrors.163.com/ubuntu/ trusty main restricted universe multiverse" >>/etc/apt/sources.list && echo "deb http://mirrors.163.com/ubuntu/ trusty-security main restricted universe multiverse" >>/etc/apt/sources.list && echo "deb http://mirrors.163.com/ubuntu/ trusty-updates main restricted universe multiverse" >>/etc/apt/sources.list && echo "deb http://mirrors.163.com/ubuntu/ trusty-proposed main restricted universe multiverse" >>/etc/apt/sources.list && echo "deb http://mirrors.163.com/ubuntu/ trusty-backports main restricted universe multiverse" >>/etc/apt/sources.list && echo "deb-src http://mirrors.163.com/ubuntu/ trusty main restricted universe multiverse" >>/etc/apt/sources.list && echo "deb-src http://mirrors.163.com/ubuntu/ trusty-security main restricted universe multiverse" >>/etc/apt/sources.list && echo "deb-src http://mirrors.163.com/ubuntu/ trusty-updates main restricted universe multiverse" >>/etc/apt/sources.list && echo "deb-src http://mirrors.163.com/ubuntu/ trusty-proposed main restricted universe multiverse" >>/etc/apt/sources.list && echo "deb-src http://mirrors.163.com/ubuntu/ trusty-backports main restricted universe multiverse" >>/etc/apt/sources.list)
-
-RUN mkdir /var/run/sshd
-RUN sed --in-place=.bak 's/without-password/yes/' /etc/ssh/sshd_config
-RUN echo 'root:12345678' | chpasswd
+#设置国内的源并安装openssh-server
+RUN echo "deb http://mirrors.163.com/ubuntu/ trusty main restricted universe multiverse" >/etc/apt/sources.list && \
+    echo "deb http://mirrors.163.com/ubuntu/ trusty-security main restricted universe multiverse" >>/etc/apt/sources.list && \
+    echo "deb http://mirrors.163.com/ubuntu/ trusty-updates main restricted universe multiverse" >>/etc/apt/sources.list && \
+    echo "deb http://mirrors.163.com/ubuntu/ trusty-proposed main restricted universe multiverse" >>/etc/apt/sources.list && \
+    echo "deb http://mirrors.163.com/ubuntu/ trusty-backports main restricted universe multiverse" >>/etc/apt/sources.list && \
+    echo "deb-src http://mirrors.163.com/ubuntu/ trusty main restricted universe multiverse" >>/etc/apt/sources.list && \
+    echo "deb-src http://mirrors.163.com/ubuntu/ trusty-security main restricted universe multiverse" >>/etc/apt/sources.list && \
+    echo "deb-src http://mirrors.163.com/ubuntu/ trusty-updates main restricted universe multiverse" >>/etc/apt/sources.list && \
+    echo "deb-src http://mirrors.163.com/ubuntu/ trusty-proposed main restricted universe multiverse" >>/etc/apt/sources.list && \
+    echo "deb-src http://mirrors.163.com/ubuntu/ trusty-backports main restricted universe multiverse" >>/etc/apt/sources.list && \
+    apt-get update && \
+    apt-get install -y openssh-server && \
+    apt-get clean && \
+    mkdir /var/run/sshd && \
+    sed --in-place=.bak 's/without-password/yes/' /etc/ssh/sshd_config && \
+    echo 'root:12345678' | chpasswd && \
 EXPOSE 222
 CMD ["/usr/sbin/sshd", "-p", "222", "-D"]
