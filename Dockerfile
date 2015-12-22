@@ -4,22 +4,12 @@
 # 
 # VERSION 0.2
 
-FROM ubuntu:14.04.3
+FROM debian:7.9
 MAINTAINER liuaifu "laf163@qq.com"
 
 #先更新并安装openssh-server（Docker Hub在国外自动构建更快），然后设为国内163源（国内使用时更快）
 RUN apt-get update && \
     apt-get install -y openssh-server && \
-    echo "deb http://mirrors.163.com/ubuntu/ trusty main restricted universe multiverse" >/etc/apt/sources.list && \
-    echo "deb http://mirrors.163.com/ubuntu/ trusty-security main restricted universe multiverse" >>/etc/apt/sources.list && \
-    echo "deb http://mirrors.163.com/ubuntu/ trusty-updates main restricted universe multiverse" >>/etc/apt/sources.list && \
-    echo "deb http://mirrors.163.com/ubuntu/ trusty-proposed main restricted universe multiverse" >>/etc/apt/sources.list && \
-    echo "deb http://mirrors.163.com/ubuntu/ trusty-backports main restricted universe multiverse" >>/etc/apt/sources.list && \
-    echo "deb-src http://mirrors.163.com/ubuntu/ trusty main restricted universe multiverse" >>/etc/apt/sources.list && \
-    echo "deb-src http://mirrors.163.com/ubuntu/ trusty-security main restricted universe multiverse" >>/etc/apt/sources.list && \
-    echo "deb-src http://mirrors.163.com/ubuntu/ trusty-updates main restricted universe multiverse" >>/etc/apt/sources.list && \
-    echo "deb-src http://mirrors.163.com/ubuntu/ trusty-proposed main restricted universe multiverse" >>/etc/apt/sources.list && \
-    echo "deb-src http://mirrors.163.com/ubuntu/ trusty-backports main restricted universe multiverse" >>/etc/apt/sources.list && \
     rm -rf /var/lib/apt/lists/* && \
     mkdir /var/run/sshd && \
     sed --in-place=.bak 's/without-password/yes/' /etc/ssh/sshd_config && \
