@@ -23,6 +23,6 @@ RUN echo "deb http://mirrors.163.com/ubuntu/ trusty main restricted universe mul
     apt-get clean && \
     mkdir /var/run/sshd && \
     sed --in-place=.bak 's/without-password/yes/' /etc/ssh/sshd_config && \
-    echo 'root:12345678' | chpasswd && \
+    echo 'root:12345678' | chpasswd
 EXPOSE 222
 CMD ["/usr/sbin/sshd", "-p", "222", "-D"]
