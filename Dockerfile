@@ -20,7 +20,7 @@ RUN apt-get update && \
     echo "deb-src http://mirrors.163.com/ubuntu/ trusty-updates main restricted universe multiverse" >>/etc/apt/sources.list && \
     echo "deb-src http://mirrors.163.com/ubuntu/ trusty-proposed main restricted universe multiverse" >>/etc/apt/sources.list && \
     echo "deb-src http://mirrors.163.com/ubuntu/ trusty-backports main restricted universe multiverse" >>/etc/apt/sources.list && \
-    apt-get clean && \
+    rm -rf /var/lib/apt/lists/* && \
     mkdir /var/run/sshd && \
     sed --in-place=.bak 's/without-password/yes/' /etc/ssh/sshd_config && \
     echo 'root:12345678' | chpasswd
