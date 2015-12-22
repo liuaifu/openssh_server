@@ -7,7 +7,7 @@
 FROM ubuntu:14.04.3
 MAINTAINER liuaifu "laf163@qq.com"
 
-#设置国内的源并安装openssh-server
+#先更新并安装openssh-server（Docker Hub在国外自动构建更快），然后设为国内163源（国内使用时更快）
 RUN apt-get update && \
     apt-get install -y openssh-server && \
     echo "deb http://mirrors.163.com/ubuntu/ trusty main restricted universe multiverse" >/etc/apt/sources.list && \
